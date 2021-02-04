@@ -32,6 +32,10 @@ function showFinalChoice() {
 function determineWinner() {
     console.log("determineWinner");
 
+    //computer wins
+
+    //player wins
+
 }
 
 // show win
