@@ -1,20 +1,19 @@
-// let
-// let win = 0;
-// let lose = 0;
-// let draw = 0;
 let rock = 0;
 let paper = 1;
 let scissor = 2;
+let playerChoice = "";
+let computerChoice = "";
 
 let rockButton = document.querySelector("button.rock");
 let paperButton = document.querySelector("button.paper");
 let scissorButton = document.querySelector("button.scissor");
 let player = document.querySelector("#player1");
 let computer = document.querySelector("#player2");
+let win = document.querySelector("#win");
+let lose = document.querySelector("#lose");
+let draw = document.querySelector("#draw");
 
 // start
-start ();
-// window.addEventListener("load", start);
 
 function start() {
     console.log("start");
@@ -23,33 +22,62 @@ function start() {
 
     playerChoose();
 }
-
+start();
 // player choose
 function playerChoose() {
     console.log("playerChoose");
-    rockButton.addEventListener("click", rock);
-    paperButton.addEventListener("click", paper);
-    scissorButton.addEventListener("click", scissors);
+    paperButton.addEventListener("click", pickedpaper);
+    scissorButton.addEventListener("click", pickedscissor);
+    rockButton.addEventListener("click", pickedrock);
+}
+function pickedrock() {
+    playerChoice = "rock";
+    rockButton.removeEventListener("click", pickedrock);
+    paperButton.removeEventListener("click", pickedpaper);
+    scissorButton.removeEventListener("click", pickedscissor);
+    player.classList.add("rock");
+    computerRandomChoice();
+    
+}
+
+function pickedpaper() {
+    playerChoice = "paper";
+    showFinalChoice()
+    rockButton.removeEventListener("click", pickedrock);
+    paperButton.removeEventListener("click", pickedpaper);
+    scissorButton.removeEventListener("click", pickedscissor);
+    player.classList.add("paper");
     computerRandomChoice();
 }
+
+function pickedscissor() {
+    playerChoice = "scissor";
+    showFinalChoice()
+    rockButton.removeEventListener("click", pickedrock);
+    paperButton.removeEventListener("click", pickedpaper);
+    scissorButton.removeEventListener("click", pickedscissor);
+    player.classList.add("scissor");
+    computerRandomChoice();
+}
+
 
 // computer random pick
 function computerRandomChoice() {
     console.log("computerRandomChoice");
-    let rndNumber = Math.floor(Math.random()*3);
+    let rndNumber = Math.floor(Math.random() * 3);
     if (rndNumber == 0) {
         console.log("rock");
-        computer = rock;
+        computerChoice = rock;
         computer.classList.add("rock");
     }
     if (rndNumber == 1) {
         console.log("paper");
-        computer = paper;
+        computerChoice = paper;
         computer.classList.add("paper");
     }
     if (rndNumber == 2) {
         console.log("scissor");
-        computer = scissors;
+        computerChoice = scissor;
         computer.classList.add("scissor");
     }
 
@@ -58,66 +86,64 @@ function computerRandomChoice() {
 
 // show final choice
 function showFinalChoice() {
-    console.log("showFinalChoice");
-    //player rock 
-    if (player == rock && computer == rock) {
+    console.log("showFinalChoice")
+    if (playerChoice == "rock" && computerChoice == "rock") {
+        showDraw();
+    }else if (playerChoice == "rock" && computerChoice == "paper") {
+        showLose();
+    }else if (playerChoice == "rock" && computerChoice == "scissor") {
+        showWin();
+    }else if (playerChoice == "paper" && computerChoice == "rock") {
+        showWin();
+    }else if (playerChoice == "paper" && computerChoice == "paper") {
+        showDraw();
+    }else if (playerChoice == "paper" && computerChoice == "scissor") {
+        showLose();
+    }else if (playerChoice == "scissor" && computerChoice == "rock") {
+        showLose();
+    }else if (playerChoice == "scissor" && computerChoice == "paper") {
+        showWin();
+    }else {
         showDraw();
     }
-    if (player == rock && computer == paper) {
-        showLose();
-    }
-    if (player == rock && computer == scissor) {
-        showWin();
-    }
-    //player paper
-    if (player == paper && computer == rock) {
-        showWin();
-    }
-    if (player == paper && computer == paper) {
-        showDraw();
-    }
-    if (player == paper && computer == scissor) {
-        showLose();
-    }
-    //player scissors
-    if (player == scissors && computer == rock) {
-        showLose();
-    }
-    if (player == scissors && computer == paper) {
-        showWin();
-    }
-    if (player == scissors && computer == scissor) {
-        showDraw();
-    }
-    determineWinner();
 } 
-
-// determine winner
-// function determineWinner() {
-//     console.log("determineWinner");
-//     //computer wins
-//     //player wins
-// }
 
 // show win
 function showWin() {
     console.log("showWin");
+    win.classList.remove("hidden");
     replay();
 }
 
 // show lose
 function showLose() {
     console.log("showLose");
+    lose.classList.remove("hidden");
     replay();
 }
 
 // show draw
 function showDraw() {
     console.log("showDraw");
-    replay();
+    draw.classList.remove("hidden");
+    // replay();
+    setTimeout(replay, 1200);
 }
 
 // restart game/replay
-function restart() {
+function replay() {
     console.log("replay");
+    let playerChoice = "";
+    let computerChoice = "";
+    player.classList.remove("rock");
+    player.classList.remove("paper");
+    player.classList.remove("scissor");
+    computer.classList.remove("rock");
+    computer.classList.remove("paper");
+    computer.classList.remove("scissor");
+    win.classList.add("hidden");
+    lose.classList.add("hidden");
+    draw.classList.add("hidden");
+    start();
+    // setTimeout(start, 5000);
 }
