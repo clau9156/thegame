@@ -87,6 +87,8 @@ function computerRandomChoice() {
 // show final choice
 function showFinalChoice() {
     console.log("showFinalChoice")
+    player.classList.remove("shake");
+    computer.classList.remove("shake");
     if (playerChoice == "rock" && computerChoice == "rock") {
         showDraw();
     }else if (playerChoice == "rock" && computerChoice == "paper") {
@@ -144,6 +146,8 @@ function replay() {
     win.classList.add("hidden");
     lose.classList.add("hidden");
     draw.classList.add("hidden");
+    player.classList.add("shake");
+    computer.classList.add("shake");
     start();
     // setTimeout(start, 5000);
 }
