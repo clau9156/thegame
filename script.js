@@ -27,9 +27,9 @@ function start() {
 // player choose
 function playerChoose() {
     console.log("playerChoose");
-    rockButton.addEventListener("click", );
-    paperButton.addEventListener("click", );
-    scissorButton.addEventListener("click", );
+    rockButton.addEventListener("click", rock);
+    paperButton.addEventListener("click", paper);
+    scissorButton.addEventListener("click", scissors);
     computerRandomChoice();
 }
 
@@ -37,17 +37,20 @@ function playerChoose() {
 function computerRandomChoice() {
     console.log("computerRandomChoice");
     let rndNumber = Math.floor(Math.random()*3);
-    if (rndNumber==0) {
+    if (rndNumber == 0) {
         console.log("rock");
-
+        computer = rock;
+        computer.classList.add("rock");
     }
-    if (rndNumber==1) {
+    if (rndNumber == 1) {
         console.log("paper");
-
+        computer = paper;
+        computer.classList.add("paper");
     }
-    if (rndNumber==2) {
+    if (rndNumber == 2) {
         console.log("scissor");
-
+        computer = scissors;
+        computer.classList.add("scissor");
     }
 
     showFinalChoice();
@@ -56,33 +59,65 @@ function computerRandomChoice() {
 // show final choice
 function showFinalChoice() {
     console.log("showFinalChoice");
+    //player rock 
+    if (player == rock && computer == rock) {
+        showDraw();
+    }
+    if (player == rock && computer == paper) {
+        showLose();
+    }
+    if (player == rock && computer == scissor) {
+        showWin();
+    }
+    //player paper
+    if (player == paper && computer == rock) {
+        showWin();
+    }
+    if (player == paper && computer == paper) {
+        showDraw();
+    }
+    if (player == paper && computer == scissor) {
+        showLose();
+    }
+    //player scissors
+    if (player == scissors && computer == rock) {
+        showLose();
+    }
+    if (player == scissors && computer == paper) {
+        showWin();
+    }
+    if (player == scissors && computer == scissor) {
+        showDraw();
+    }
     determineWinner();
 } 
 
 // determine winner
-function determineWinner() {
-    console.log("determineWinner");
-
-    //computer wins
-
-    //player wins
-
-}
+// function determineWinner() {
+//     console.log("determineWinner");
+//     //computer wins
+//     //player wins
+// }
 
 // show win
 function showWin() {
     console.log("showWin");
-
+    replay();
 }
 
 // show lose
 function showLose() {
     console.log("showLose");
-
+    replay();
 }
 
 // show draw
 function showDraw() {
     console.log("showDraw");
+    replay();
+}
 
+// restart game/replay
+function restart() {
+    console.log("replay");
 }
